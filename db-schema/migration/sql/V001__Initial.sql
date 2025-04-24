@@ -1,39 +1,48 @@
+CREATE TABLE IF NOT EXISTS ADDRESS (
+    id UUID PRIMARY KEY,
+    latitude DECIMAL(8,6) NOT NULL,
+    longitude DECIMAL(9,6) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS MERCHANT (
     id UUID PRIMARY KEY,
     name VARCHAR(255),
-    description VARCHAR(255),
-    latitude DECIMAL(8,6) NOT NULL,
-    longitude DECIMAL(9,6) NOT NULL,
+    description VARCHAR(255)
 );
 
-CREATE TABLE IF NOT EXISTS ORDER (
+CREATE TYPE ORDERS_STATUS AS ENUM ('PENDING', 'WAITING DRIVER', 'WAITING MERCHANT', 'DONE', 'CANCELED');
+
+CREATE TABLE IF NOT EXISTS ORDERS (
     id UUID PRIMARY KEY,
-    merchant_id UUID,
-    price DECIMAL(10, 2),
+    merchant_id UUID NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
-    latitude DECIMAL(8,6) NOT NULL,
-    longitude DECIMAL(9,6) NOT NULL,
+    status ORDERS_STATUS NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS DISCOUNT(
-    discount_id UUID PRIMARY KEY,
-    price DECIMAL(10, 2),
-    begin_time TIMESTAMP,
-    end_time TIMESTAMP,
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP,
-    is_valid BOOLEAN,
-);
+CREATE TYPE CAMPAIGN_TYPE AS ENUM('SURGE', 'DISCOUNT');
 
-CREATE TABLE IF NOT EXISTS SURGE (
+CREATE TYPE OPERATION_TYPE AS ENUM('SUM', 'PRODUCT');
+
+CREATE TABLE IF NOT EXISTS CAMPAIGN (
     surge_id UUID PRIMARY KEY,
-    price DECIMAL(10, 2),
+    type campaign_type,
+    price INTEGER,
+    operation OPERATION_TYPE,
     begin_time TIMESTAMP,
     end_time TIMESTAMP,
     created_at TIMESTAMP,
-    updated_at TIMESTAMP,
-    is_valid BOOLEAN,
+    updated_at TIMESTAMP
+);
+
+CREATE TYPE EVENT_TYPE AS ENUM ('FULL', 'NRE', 'AVAILABLE');
+
+CREATE TABLE IF NOT EXISTS EVENTS (
+    id SERIAL PRIMARY KEY,
+    type EVENT_TYPE,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS QUOTATION_REJECTED(
@@ -45,8 +54,7 @@ CREATE TABLE IF NOT EXISTS QUOTATION_REJECTED(
 
 CREATE TABLE IF NOT EXISTS QUOTATION (
     id UUID PRIMARY KEY,
-    order_id UUID REFERENCES ORDER(id),
-    merchant_id UUID REFERENCES MERCHANT(id),
+    order_id UUID REFERENCES ORDERS(id),
     price_base DECIMAL(10, 2),
     price_surge DECIMAL(10, 2),
     price_discount DECIMAL(10,2),

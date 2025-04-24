@@ -1,9 +1,7 @@
 package adnemoretti.ondemand.on_demand.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import adnemoretti.ondemand.on_demand.dto.request.ApproveRequestDTO;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
 @RestController
@@ -11,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 public class QuotationController {
 
     @PostMapping("/approve")
-    public ResponseEntity<?> validate(static ? ) {
+    public ResponseEntity<?> validate(@RequestBody final ApproveRequestDTO approveRequest) {
         return "OK";
     }
 
