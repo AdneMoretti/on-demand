@@ -1,4 +1,4 @@
-package adnemoretti.ondemand.on_demand.models;
+package adnemoretti.ondemand.on_demand.enums;
 
 public enum EventTypeEnum {
     FULL("FULL"),

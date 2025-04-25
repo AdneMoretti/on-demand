@@ -1,4 +1,5 @@
 package adnemoretti.ondemand.on_demand.models;
+import adnemoretti.ondemand.on_demand.enums.EventTypeEnum;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
