@@ -11,6 +11,14 @@ public class Address {
 
     private double latitude;
     private double longitude;
+    public Address() {
+    }
+
+    public Address(UUID id, double latitude, double longitude) {
+        this.id = id;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 
     public UUID getId() {
         return id;

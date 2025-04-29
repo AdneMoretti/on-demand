@@ -1,9 +1,6 @@
 package adnemoretti.ondemand.on_demand.models;
 import adnemoretti.ondemand.on_demand.enums.EventTypeEnum;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
@@ -13,9 +10,18 @@ public class Events {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Enumerated(EnumType.STRING)
     private EventTypeEnum type;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    public Events(){
+    }
+    public Events(EventTypeEnum type, LocalDateTime createdAt, LocalDateTime updatedAt){
+        this.type = type;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
     public EventTypeEnum getType() {
         return type;

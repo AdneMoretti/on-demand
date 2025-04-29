@@ -15,6 +15,14 @@ public class Merchant {
     @OneToOne
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
+    public Merchant() {
+    }
+    public Merchant(UUID id, String name, String description, Address address) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.address = address;
+    }
 
     public UUID getId() {
         return id;

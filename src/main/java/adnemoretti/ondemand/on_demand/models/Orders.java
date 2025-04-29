@@ -18,6 +18,8 @@ public class Orders {
     @OneToOne
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
+
+    @Enumerated(EnumType.STRING)
     private OrderStatusEnum status;
     private double price;
     private LocalDateTime createdAt;

@@ -1,6 +1,6 @@
 package adnemoretti.ondemand.on_demand.utils;
 
-import adnemoretti.ondemand.on_demand.dto.AddressDTO;
+import adnemoretti.ondemand.on_demand.models.Address;
 
 public class GeolocalUtils {
 
@@ -8,14 +8,14 @@ public class GeolocalUtils {
         return Math.pow(Math.sin(val / 2), 2);
     }
 
-    public static double distance(AddressDTO origin, AddressDTO destination) {
+    public static double distance(Address origin, Address destination) {
         final double raio = 6371;
 
-        double dLat = Math.toRadians(destination.latitude() - origin.latitude());
-        double dLong = Math.toRadians(destination.longitude() - origin.longitude());
+        double dLat = Math.toRadians(destination.getLatitude() - origin.getLatitude());
+        double dLong = Math.toRadians(destination.getLongitude() - origin.getLongitude());
 
-        double startLat = Math.toRadians(origin.latitude());
-        double endLat = Math.toRadians(destination.latitude());
+        double startLat = Math.toRadians(origin.getLatitude());
+        double endLat = Math.toRadians(destination.getLatitude());
 
         double a = haversine(dLat) + Math.cos(startLat) * Math.cos(endLat) * haversine(dLong);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
